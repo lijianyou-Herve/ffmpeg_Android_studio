@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.example.herve.ffm_demo"
+        minSdkVersion 15
+//        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            moduleName "ffmpeg_bjx"            //生成的so名字
+//            abiFilters "armeabi", "armeabi-v7a", "x86"    //输出指定三种abi体系结构下的so库。目前可有可无。
+            ldLibs "log"
+//            ldLibs "jni"
+//            LOCAL_MODULE    := hello
+//            LOCAL_SRC_FILES := hello.cpp
+//            LOCAL_LDLIBS :=-llog
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jni', 'src/main/jni/2', 'src/main/jni/ffmpeg']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.0.0'
+}
